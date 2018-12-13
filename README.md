@@ -7,16 +7,16 @@
 2.docker-compose编译参考：https://github.com/ubiquiti/docker-compose-aarch64 。
 
 3.编译命令：
-'''
+```
 make package_offline GOBUILDIMAGE=golang:1.9.2 COMPILETAG=compile_golangimage 
-'''
+```
 
 4.版本控制
-'''
+```
 修改Makefile中的参数：
 VERSIONTAG :镜像tag
 PKGVERSIONTAG :安装包版本
-'''
+```
 
 5* 遗留问题：
    在编译tools/migration/时由于photon:3.0-aarch64的tdnf源：https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/ 缺少mariadb-server mariadb mariadb-devel包，而update源https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/不存在，最终由于安装mariadb组件失败导致编译退出。
@@ -32,14 +32,17 @@ Main Explanations:
 
 2.Building docker-compose for ARM64 reference on https://github.com/ubiquiti/docker-compose-aarch64.
 
-3.CMD:make package_offline GOBUILDIMAGE=golang:1.9.2 COMPILETAG=compile_golangimage
+3.CMD:
+```
+make package_offline GOBUILDIMAGE=golang:1.9.2 COMPILETAG=compile_golangimage
+```
 
 4.version control 
-'''
+```
 modify the parameter in Makefile:
 VERSIONTAG : Harbor images tag, default: dev
 PKGVERSIONTAG : Harbor online and offline version tag, default:dev
-'''
+```
 
 5*Unresolved problems
   Building tools/migration Error, because The software source(https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/) of photon:3.0-aarch64 tdnf doesn't have the packages of mariadb-server mariadb mariadb-devel,and the source of update:https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/ doesn't seem to have been established.
