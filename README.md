@@ -17,7 +17,7 @@ PKGVERSIONTAG :安装包版本
    在编译tools/migration/时由于photon:3.0-aarch64的tdnf源：https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/ 缺少mariadb-server mariadb mariadb-devel包，而update源https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/不存在，最终由于安装mariadb组件失败导致编译退出。
    目前只能注释该Dakefile的这一部分，但是这将直接导致编译出来的goharbor/harbor-migrator镜像不可用，但这不影响docker-harbor的部署，因为这只是一个工具。
 
-————————————————————————————————————————————————————————————————————————————————
+————————————————————
     This project exists because, currently, I can't find the images or offline packages for arm64 on the harbor release（https://github.com/goharbor/harbor/releases）. To meet my needs, I built the images and offline packages on  ARM64 device using https://github.com/goharbor/harbor source code,reference on https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md .
 Main Explanations:
 1.Building needs to be done on ARM64 devices.
