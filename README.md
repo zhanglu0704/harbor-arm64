@@ -1,83 +1,34 @@
-# Harbor
+# Harbor-ARM64
+    由于目前并未发现Harbor官方对ARM64架构提供支持，出于需要，我使用https://github.com/goharbor/harbor 源码，参考https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md 文档在ARM64设备上进行编译，产生Harbor部署所需镜像以及离线安装包。以下是主要说明：
+1.编译需要在ARM64架构的设备上进行。
+2.docker-compose编译参考：https://github.com/ubiquiti/docker-compose-aarch64 。
+3.编译命令：
+```
+make package_offline GOBUILDIMAGE=golang:1.9.2 COMPILETAG=compile_golangimage 
 
-[![Build Status](https://travis-ci.org/goharbor/harbor.svg?branch=master)](https://travis-ci.org/goharbor/harbor)
-[![Coverage Status](https://coveralls.io/repos/github/goharbor/harbor/badge.svg?branch=master)](https://coveralls.io/github/goharbor/harbor?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/goharbor/harbor)](https://goreportcard.com/report/github.com/goharbor/harbor)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/2095/badge)](https://bestpractices.coreinfrastructure.org/projects/2095)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c8d726c9cfd047ffaf681449d673f246)](https://www.codacy.com/app/goharbor/harbor?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=goharbor/harbor&amp;utm_campaign=Badge_Grade)
-[![Nightly Status](https://us-central1-eminent-nation-87317.cloudfunctions.net/harbor-nightly-result)](https://www.googleapis.com/storage/v1/b/harbor-nightly/o)
+```
+4.版本控制
+```
+修改Makefile中的参数：
+VERSIONTAG :镜像tag
+PKGVERSIONTAG :安装包版本
+```
+5* 遗留问题：
+   在编译tools/migration/时由于photon:3.0-aarch64的tdnf源：https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/ 缺少mariadb-server mariadb mariadb-devel包，而update源https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/不存在，最终由于安装mariadb组件失败导致编译退出。
+   目前只能注释该Dakefile的这一部分，但是这将直接导致编译出来的goharbor/harbor-migrator镜像不可用，但这不影响docker-harbor的部署，因为这只是一个工具。
 
-</br>
-
-|![notification](docs/img/bell-outline-badged.svg)Community Meeting|
-|------------------|
-|The Harbor Project holds bi-weekly community calls, to join them and watch previous meeting notes and recordings, please see [meeting schedule](https://github.com/goharbor/community/blob/master/MEETING_SCHEDULE.md).|
-</br>
-
-**Note**: The `master` branch may be in an *unstable or even broken state* during development.
-Please use [releases](https://github.com/vmware/harbor/releases) instead of the `master` branch in order to get stable binaries.
-
-<img alt="Harbor" src="docs/img/harbor_logo.png">
-
-Harbor is an an open source trusted cloud native registry project that stores, signs, and scans content. Harbor extends the open source Docker Distribution by adding the functionalities usually required by users such as security, identity and management. Having a registry closer to the build and run environment can improve the image transfer efficiency. Harbor supports replication of images between registries, and also offers advanced security features such as user management, access control and activity auditing.
-
-Harbor is hosted by the [Cloud Native Computing Foundation](https://cncf.io) (CNCF). If you are an organization that wants to help shape the evolution of cloud native technologies, consider joining the CNCF. For details about who's involved and how Harbor plays a role, read the CNCF
-[announcement](https://www.cncf.io/blog/2018/07/31/cncf-to-host-harbor-in-the-sandbox/).
-
-## Features
-
-* **Cloud native registry**: With support for both container images and [Helm](https://helm.sh) charts, Harbor serves as registry for cloud native environments like container runtimes and orchestration platforms.
-* **Role based access control**: Users and repositories are organized via 'projects' and a user can have different permission for images under a project.
-* **Policy based image replication**: Images can be replicated (synchronized) between multiple registry instances based on policies with multiple filters (repository, tag and label). Harbor will auto-retry to replicate if it encounters any errors. Great for load balancing, high availability, multi-datacenter, hybrid and multi-cloud scenarios.
-* **Vulnerability Scanning**: Harbor scans images regularly and warns users of vulnerabilities.
-* **LDAP/AD support**: Harbor integrates with existing enterprise LDAP/AD for user authentication and management, and supports importing LDAP groups into Harbor and assigning proper project roles to them.  
-* **Image deletion & garbage collection**: Images can be deleted and their space can be recycled.
-* **Notary**: Image authenticity can be ensured.
-* **Graphical user portal**: User can easily browse, search repositories and manage projects.
-* **Auditing**: All the operations to the repositories are tracked.
-* **RESTful API**: RESTful APIs for most administrative operations, easy to integrate with external systems.
-* **Easy deployment**: Provide both an online and offline installer.
-
-## Install & Run
-
-**System requirements:**
-
-**On a Linux host:** docker 17.03.0-ce+ and docker-compose 1.10.0+ .
-
-Download binaries of **[Harbor release ](https://github.com/vmware/harbor/releases)** and follow **[Installation & Configuration Guide](docs/installation_guide.md)** to install Harbor.
-
-If you want to deploy Harbor on Kubernetes, please use the **[Harbor chart](https://github.com/goharbor/harbor-helm)**.
-
-Refer to **[User Guide](docs/user_guide.md)** for more details on how to use Harbor.
-
-## Community
-
-* **Twitter:** [@project_harbor](https://twitter.com/project_harbor)  
-* **User Group:** Join Harbor user email group: [harbor-users@googlegroups.com](https://groups.google.com/forum/#!forum/harbor-users) to get update of Harbor's news, features, releases, or to provide suggestion and feedback. To subscribe, send an email to [harbor-users+subscribe@googlegroups.com](mailto:harbor-users+subscribe@googlegroups.com) .  
-* **Developer Group:** Join Harbor developer group: [harbor-dev@googlegroups.com](https://groups.google.com/forum/#!forum/harbor-dev) for discussion on Harbor development and contribution. To subscribe, send an email to [harbor-dev+subscribe@googlegroups.com](mailto:harbor-dev+subscribe@googlegroups.com).  
-* **Slack:** Join Harbor's community for discussion and ask questions: [Cloud Native Computing Foundation](https://slack.cncf.io/), channel: #harbor and #harbor-dev
-
-## Additional Tools
-
-Tools layered on top of Harbor and contributed by community.
-
-* **[Harbor.Tagd](https://github.com/HylandSoftware/Harbor.Tagd)**
-  - Automates the process of cleaning up old tags from your Harbor container registries.
-  - Lead by [@nlowe](https://github.com/nlowe) from HylandSoftware.
-
-## Demos
-
-* **[Live Demo](https://demo.goharbor.io)** - A demo environment with the latest Harbor stable build installed. For additional information please refer to [this page](docs/demo_server.md).
-* **[Video Demos](https://github.com/goharbor/harbor/wiki/Video-demos-for-Harbor)** - Demos for Harbor features and continuously updated.
-
-## Partners and Users
-
-For a list of users, please refer to [ADOPTERS.md](ADOPTERS.md).
-
-## License
-
-Harbor is available under the [Apache 2 license](LICENSE).
-
-This project uses open source components which have additional licensing terms.  The official docker images and licensing terms for these open source components can be found at the following locations:
-
-* Photon OS 1.0: [docker image](https://hub.docker.com/_/photon/), [license](https://github.com/vmware/photon/blob/master/COPYING)
+————————————————————————————————————————————————————————————————————————————————
+    This project exists because, currently, I can't find the images or offline packages for arm64 on the harbor release（https://github.com/goharbor/harbor/releases）. To meet my needs, I built the images and offline packages on  ARM64 device using https://github.com/goharbor/harbor source code,reference on https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md .
+Main Explanations:
+1.Building needs to be done on ARM64 devices.
+2.Building docker-compose for ARM64 reference on https://github.com/ubiquiti/docker-compose-aarch64.
+3.CMD:make package_offline GOBUILDIMAGE=golang:1.9.2 COMPILETAG=compile_golangimage
+4.version control 
+```
+modify the parameter in Makefile:
+VERSIONTAG : Harbor images tag, default: dev
+PKGVERSIONTAG : Harbor online and offline version tag, default:dev
+```
+5*Unresolved problems
+  Building tools/migration Error, because The software source(https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/) of photon:3.0-aarch64 tdnf doesn't have the packages of mariadb-server mariadb mariadb-devel,and the source of update:https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/ doesn't seem to have been established.
+  For skip building errors,I just commented and disabled the code of building image migration in Dockerfile on tools/migration.It will not affect the using of harbor, but it is not a good way to solving it.Hope you can make some suggestions.Thanks.
