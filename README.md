@@ -1,6 +1,6 @@
 # Harbor-ARM64
-```
-    由于目前并未发现Harbor官方对ARM64架构提供支持，出于需要，我使用https://github.com/goharbor/harbor 源码，参考https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md 文档在ARM64设备上进行编译，产生Harbor部署所需镜像以及离线安装包。以下是主要说明：
+
+   由于目前并未发现Harbor官方对ARM64架构提供支持，出于需要，我使用https://github.com/goharbor/harbor 源码，参考https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md 文档在ARM64设备上进行编译，产生Harbor部署所需镜像以及离线安装包。以下是主要说明：
 1.编译需要在ARM64架构的设备上进行。
 2.docker-compose编译参考：https://github.com/ubiquiti/docker-compose-aarch64 。
 3.编译命令：
@@ -34,4 +34,3 @@ PKGVERSIONTAG : Harbor online and offline version tag, default:dev
 5*Unresolved problems
   Building tools/migration Error, because The software source(https://dl.bintray.com/vmware/photon_release_3.0_aarch64/aarch64/) of photon:3.0-aarch64 tdnf doesn't have the packages of mariadb-server mariadb mariadb-devel,and the source of update:https://dl.bintray.com/vmware/photon_updates_3.0_aarch64/ doesn't seem to have been established.
   For skip building errors,I just commented and disabled the code of building image migration in Dockerfile on tools/migration.It will not affect the using of harbor, but it is not a good way to solving it.Hope you can make some suggestions.Thanks.
-```
