@@ -1,0 +1,11 @@
+docker rmi    cf9fe441de72    
+docker rmi    df14c7315563    
+docker rmi    e031bdaee0d7    
+docker rmi    8d3c0bc88ddc    
+docker rmi    799089ec66dc    
+docker rmi    4d1cfe8e72ca    
+docker rmi    8be90f9c2d30    
+docker rmi    e416c7befa80    
+docker rmi    aeb567230329    
+docker rmi    39bdab9e8419    
+docker rmi    5f621bad7b85    
