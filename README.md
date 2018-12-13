@@ -19,7 +19,7 @@ PKGVERSIONTAG :安装包版本
 
 ————————————————————
 
-    This project exists because, currently, I can't find the images or offline packages for arm64 on the harbor release（https://github.com/goharbor/harbor/releases）. To meet my needs, I built the images and offline packages on  ARM64 device using https://github.com/goharbor/harbor source code,reference on https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md .
+  This project exists because, currently, I can't find the images or offline packages for arm64 on the harbor release（https://github.com/goharbor/harbor/releases）. To meet my needs, I built the images and offline packages on  ARM64 device using https://github.com/goharbor/harbor source code,reference on https://github.com/goharbor/harbor/blob/master/docs/compile_guide.md .
 Main Explanations:
 1.Building needs to be done on ARM64 devices.
 2.Building docker-compose for ARM64 reference on https://github.com/ubiquiti/docker-compose-aarch64.
