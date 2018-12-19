@@ -12,7 +12,7 @@ services:
           - redis
   chartmuseum:
     container_name: chartmuseum
-    image: goharbor/chartmuseum-photon:v0.7.1-dev
+    image: goharbor/chartmuseum-photon:v0.7.1-1.7.0-arm64
     restart: always
     cap_drop:
       - ALL

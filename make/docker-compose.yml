@@ -1,7 +1,7 @@
 version: '2'
 services:
   log:
-    image: goharbor/harbor-log:dev
+    image: goharbor/harbor-log:1.7.0-arm64
     container_name: harbor-log 
     restart: always
     dns_search: .
@@ -20,7 +20,7 @@ services:
     networks:
       - harbor
   registry:
-    image: goharbor/registry-photon:v2.6.2-dev
+    image: goharbor/registry-photon:v2.6.2-1.7.0-arm64
     container_name: registry
     restart: always
     cap_drop:
@@ -44,7 +44,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "registry"
   registryctl:
-    image: goharbor/harbor-registryctl:dev
+    image: goharbor/harbor-registryctl:1.7.0-arm64
     container_name: registryctl
     env_file:
       - ./common/config/registryctl/env
@@ -70,7 +70,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "registryctl"
   postgresql:
-    image: goharbor/harbor-db:dev
+    image: goharbor/harbor-db:1.7.0-arm64
     container_name: harbor-db
     restart: always
     cap_drop:
@@ -95,7 +95,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "postgresql"
   adminserver:
-    image: goharbor/harbor-adminserver:dev
+    image: goharbor/harbor-adminserver:1.7.0-arm64
     container_name: harbor-adminserver
     env_file:
       - ./common/config/adminserver/env
@@ -121,7 +121,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "adminserver"
   core:
-    image: goharbor/harbor-core:dev
+    image: goharbor/harbor-core:1.7.0-arm64
     container_name: harbor-core
     env_file:
       - ./common/config/core/env
@@ -152,7 +152,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "core"
   portal:
-    image: goharbor/harbor-portal:dev
+    image: goharbor/harbor-portal:1.7.0-arm64
     container_name: harbor-portal
     restart: always
     cap_drop:
@@ -175,7 +175,7 @@ services:
         tag: "portal"
 
   jobservice:
-    image: goharbor/harbor-jobservice:dev
+    image: goharbor/harbor-jobservice:1.7.0-arm64
     container_name: harbor-jobservice
     env_file:
       - ./common/config/jobservice/env
@@ -202,7 +202,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "jobservice"
   redis:
-    image: goharbor/redis-photon:dev
+    image: goharbor/redis-photon:1.7.0-arm64
     container_name: redis
     restart: always
     cap_drop:
@@ -224,7 +224,7 @@ services:
         syslog-address: "tcp://127.0.0.1:1514"
         tag: "redis"
   proxy:
-    image: goharbor/nginx-photon:dev
+    image: goharbor/nginx-photon:1.7.0-arm64
     container_name: nginx
     restart: always
     cap_drop:

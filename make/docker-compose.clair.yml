@@ -20,7 +20,7 @@ services:
     networks:
       - harbor-clair
     container_name: clair
-    image: goharbor/clair-photon:v2.0.7-dev
+    image: goharbor/clair-photon:v2.0.7-1.7.0-arm64
     restart: always
     cap_drop:
       - ALL
